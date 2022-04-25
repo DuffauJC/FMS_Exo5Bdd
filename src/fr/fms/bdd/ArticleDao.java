@@ -45,7 +45,7 @@ public class ArticleDao implements Dao<Article> {
 		try(PreparedStatement ps =connection.prepareStatement(strSql)){ // de java.sql
 			ps.setInt(1, id);
 			ResultSet rs=ps.executeQuery();  // ResultSet de java.sql
-			while (rs.next()) {
+			rs.next();
 				int rsidArticle=rs.getInt(1);  // soit index(de 1 à n) de la colonne, soit le nom de la colonne
 				String rsdescription=rs.getString(2);
 				String rsbrand=rs.getString(3);
@@ -53,7 +53,6 @@ public class ArticleDao implements Dao<Article> {
 
 				art=new Article(rsidArticle,rsdescription,rsbrand,rsunitaryPrice);
 
-			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -91,7 +90,7 @@ public class ArticleDao implements Dao<Article> {
 	@Override
 	public boolean delete(int id) {
 
-		String strSql="DELETE FROM t_articles WHERE IdArticle = ?;";						// une fois connecté, réalisation d'un requête
+		String strSql="DELETE FROM t_articles WHERE IdArticle = ?;";	// une fois connecté, réalisation d'un requête
 		try(PreparedStatement ps =connection.prepareStatement(strSql)){ // de java.sql
 			ps.setInt(1, id);
 
